@@ -2,9 +2,9 @@
 import random
 import os
 
-questions_array = [
+questions_dict = {
+        "What is your level of attention to detail? [0-5] ":
         {
-            "question": "What is your level of attention to detail? [0-5] ", 
              "1": 3, 
              "2": 4, 
              "7": 5, 
@@ -13,8 +13,8 @@ questions_array = [
              "14": 2
          },
 
+        "How focused are you on safety? [0-5] ": 
         {
-            "question": "How focused are you on safety? [0-5] ", 
              "4": 5,
              "8": 2,
              "11": 3,
@@ -24,8 +24,8 @@ questions_array = [
              "16": 2
          },
 
+        "How much abuse can you take in a day? [0-5] ":
         {
-            "question": "How much abuse can you take in a day? [0-5] ",
              "4": 1,
              "5": 5,
              "6": 5,
@@ -34,22 +34,22 @@ questions_array = [
              "13": 5
          },
 
+        "How well can you stay on script? [0-5] ":
         {
-            "question": "How well can you stay on script? [0-5] ",
              "5": 3,
              "10": 5,
              "14": 2
          },
 
+        "How BAD is your sense of smell? [0-5] ": 
         {
-            "question": "How BAD is your sense of smell? [0-5] ", 
              "6": 5,
              "8": 4,
              "12": 2
          },
 
+        "How fearless are you? [0-5] ": 
         {
-            "question": "How fearless are you? [0-5] ", 
              "4": 5,
              "6": 3,
              "7": 2,
@@ -60,15 +60,15 @@ questions_array = [
              "16": 4
          },
 
+        "How likely are you to try any food? [0-5] ": 
         {
-             "question": "How likely are you to try any food? [0-5] ", 
              "3": 3,
              "7": 4,
              "13": 5
          },
 
+        "How much do you love animals? [0-5] ": 
         {
-             "question": "How much do you love animals? [0-5] ", 
              "1": 5,
              "3": 3,
              "4": 5,
@@ -76,8 +76,8 @@ questions_array = [
              "12": 2
          },
 
+        "How into weird stuff are you? [0-5] ": 
         {
-             "question": "How into weird stuff are you? [0-5] ", 
              "1": 3,
              "7": 5,
              "12": 4,
@@ -85,40 +85,40 @@ questions_array = [
              "16": 5
          },
         
+        "How much of a perpetual kid are you? [0-5] ": 
         {
-             "question": "How much of a perpetual kid are you? [0-5] ", 
              "9": 5,
              "11": 4,
              "12": 3
          },
+        "How frequently do you abuse your liver? [0-5] ":
         {
-             "question": "How frequently do you abuse your liver? [0-5] ",
              "3": 10,
              "10": 1,
              "13": 1
         },
+        "How often do you enjoy stimulating television/streaming? [0-5] ":
         {
-             "question": "How often do you enjoy stimulating television/streaming? [0-5] ",
              "2": 10,
              "3": 5,
              "16": 1
         },
+        "How often do you feel at one with the universe? [0-5] ":
         {
-             "question": "How often do you feel at one with the universe? [0-5] ",
              "1": 5,
              "12": 3,
              "14": 5,
              "16": 2
         },
+        "How many of your friends (or if you are friendless, random strangers) tell you you're bizarre? [0-5] ":
         {
-             "question": "How many of your friends (or if you are friendless, random strangers) tell you you're bizarre? [0-5] ",
              "5": 5,
              "8": 5,
              "9": 5,
              "12": 5,
              "14": 5
          }
-]
+}
 
 # Professions and explanations
 professions = [
@@ -190,15 +190,14 @@ def main():
     final_tally = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     
     # Prompt with questions
-    for key in questions_array:
-        response = bad_input_check(input(key["question"]), key["question"])
+    for key, value in questions_dict.items():
+        response = bad_input_check(input(key), key)
 
         get_commentary(response)
 
         # And calculate a new tally depending on that response for related questions
-        for item in key:
-            if item.isdigit():
-                final_tally[int(item) - 1] += key[item] * response
+        for profnum, multiplier in value.items():
+            final_tally[(int(profnum) - 1)] += multiplier * response
        
 
     # Find the highest score
